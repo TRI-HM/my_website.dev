@@ -44,6 +44,7 @@ const NumberGuessing = () => {
   const [targetNumber, setTargetNumber] = useState<number[]>([1, 3, 2, 4, 5]);
   const [cards, setCards] = useState<number[]>([1, 2, 3, 4, 5]);
   const [correctPositions, setCorrectPositions] = useState(0);
+  const [moveCount, setMoveCount] = useState(0);
 
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const updatedCards = [...cards];
@@ -51,6 +52,7 @@ const NumberGuessing = () => {
     updatedCards[dragIndex] = updatedCards[hoverIndex];
     updatedCards[hoverIndex] = dragCard;
     setCards(updatedCards);
+    setMoveCount(moveCount + 1);
   };
 
   const handleGuess = () => {
@@ -70,6 +72,7 @@ const NumberGuessing = () => {
   const handleReset = () => {
     setCards([1, 2, 3, 4, 5]);
     setCorrectPositions(0);
+    setMoveCount(0);
     // Set random a new target
     const newTarget = targetNumber.sort(() => Math.random() - 0.5);
     setTargetNumber(newTarget);
@@ -95,7 +98,11 @@ const NumberGuessing = () => {
             <Button handleOnClick={handleReset} content="Reset" />
             <Button handleOnClick={handleGuess} content="Guess" />
           </div>
-          <p>Numbers in correct position: {correctPositions}</p>
+          <div>
+            <p>Numbers in correct position: {correctPositions}</p>
+            <p>Target: {targetNumber.join(" ")}</p>
+            <p>Count user move: {moveCount}</p>
+          </div>
         </div>
       </div>
     </DndProvider>
