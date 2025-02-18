@@ -4,7 +4,6 @@ import { useDrag, useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "@/app/components/numberGuessing/Card";
 import Button from "./components/Button";
-import { randomInt } from "crypto";
 
 interface CardItemProps {
   number: number;
@@ -42,12 +41,10 @@ const CardItem: React.FC<CardItemProps> = ({ number, index, moveCard }) => {
 };
 
 const NumberGuessing = () => {
-  // State targetNumber lưu trữ số mà người chơi cần đoán, ban đầu là 3
   const [targetNumber, setTargetNumber] = useState<number[]>([1, 3, 2, 4, 5]);
-  // State lưu trữ thứ tự của các Card, ban đầu là [1, 2, 3, 4, 5]
   const [cards, setCards] = useState<number[]>([1, 2, 3, 4, 5]);
+  const [correctPositions, setCorrectPositions] = useState(0);
 
-  // Hàm thay đổi thứ tự Card khi kéo thả
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const updatedCards = [...cards];
     const dragCard = updatedCards[dragIndex];
@@ -57,16 +54,26 @@ const NumberGuessing = () => {
   };
 
   const handleGuess = () => {
-    console.log(cards.join(" ")); // This will output "3 2 1 5 4" after reordering the cards
+    let correctCount = 0;
+    for (let i = 0; i < targetNumber.length; i++) {
+      if (cards[i] === targetNumber[i]) {
+        correctCount++;
+      }
+    }
+    setCorrectPositions(correctCount);
+
     if (cards.join(" ") === targetNumber.join(" ")) {
       alert("You win!");
-    } else {
-      alert("You lose!");
     }
   };
 
   const handleReset = () => {
     setCards([1, 2, 3, 4, 5]);
+    setCorrectPositions(0);
+    // Set random a new target
+    const newTarget = targetNumber.sort(() => Math.random() - 0.5);
+    setTargetNumber(newTarget);
+    console.log(newTarget);
   };
 
   return (
@@ -88,6 +95,7 @@ const NumberGuessing = () => {
             <Button handleOnClick={handleReset} content="Reset" />
             <Button handleOnClick={handleGuess} content="Guess" />
           </div>
+          <p>Numbers in correct position: {correctPositions}</p>
         </div>
       </div>
     </DndProvider>
