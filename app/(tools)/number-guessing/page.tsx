@@ -100,7 +100,7 @@ const NumberGuessing = () => {
           </div>
           <div>
             <p>Numbers in correct position: {correctPositions}</p>
-            <p>Target: {targetNumber.join(" ")}</p>
+            {/* <p>Target: {targetNumber.join(" ")}</p> */}
             <p>Count user move: {moveCount}</p>
           </div>
         </div>
