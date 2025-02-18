@@ -52,6 +52,10 @@ const NumberGuessing = () => {
     setCards(updatedCards);
   };
 
+  const handleGuess = () => {
+    console.log(cards.join(" ")); // This will output "3 2 1 5 4" after reordering the cards
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="flex justify-center items-center h-screen w-full bg-slate-500">
@@ -67,7 +71,11 @@ const NumberGuessing = () => {
               />
             ))}
           </div>
-          <button>Guess</button>
+          <button
+            className="bg-red-400 text-white p-2 rounded-lg mt-4 hover:bg-red-500 hover:shadow-lg"
+            onClick={handleGuess}>
+            Guess
+          </button>
         </div>
       </div>
     </DndProvider>
