@@ -13,7 +13,6 @@ interface CardItemProps {
 const CardItem: React.FC<CardItemProps> = ({ number, index, moveCard }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Thiết lập phần "drag" cho Card
   const [{ isDragging }, drag] = useDrag({
     type: "CARD",
     item: { index },
@@ -22,16 +21,12 @@ const CardItem: React.FC<CardItemProps> = ({ number, index, moveCard }) => {
     }),
   });
 
-  // Thiết lập phần "drop" cho Card
   const [, drop] = useDrop({
     accept: "CARD",
-    hover: (item: { index: number }) => {
-      if (!ref.current) return;
+    drop: (item: { index: number }) => {
       const dragIndex = item.index;
       const hoverIndex = index;
-      if (dragIndex === hoverIndex) return;
       moveCard(dragIndex, hoverIndex);
-      item.index = hoverIndex; // Cập nhật lại index của item sau khi đã di chuyển
     },
   });
 
@@ -51,8 +46,9 @@ const NumberGuessing = () => {
   // Hàm thay đổi thứ tự Card khi kéo thả
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const updatedCards = [...cards];
-    const [removed] = updatedCards.splice(dragIndex, 1);
-    updatedCards.splice(hoverIndex, 0, removed);
+    const dragCard = updatedCards[dragIndex];
+    updatedCards[dragIndex] = updatedCards[hoverIndex];
+    updatedCards[hoverIndex] = dragCard;
     setCards(updatedCards);
   };
 
