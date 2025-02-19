@@ -22,7 +22,10 @@ const Card = (prop: CardProps) => {
 
   return (
     <div
-      className="w-[100px] h-[100px] bg-red-400 flex justify-center items-center m-4 rounded-xl"
+      className="w-[100px] h-[100px] max-sm:w-[70px] max-sm:h-[70px]
+      bg-red-400 flex justify-center items-center 
+      m-4 max-sm:m-2
+      rounded-xl"
       // style={{ backgroundColor: randomColor }}
     >
       <span className="text-4xl font-bold">{prop.number}</span>
