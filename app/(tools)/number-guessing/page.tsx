@@ -33,8 +33,27 @@ const CardItem: React.FC<CardItemProps> = ({ number, index, moveCard }) => {
 
   drag(drop(ref));
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior (use with caution)
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior (use with caution)
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior (use with caution)
+  };
+
   return (
-    <div ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }} className="m-4">
+    <div
+      ref={ref}
+      style={{ opacity: isDragging ? 0.5 : 1, touchAction: "none" }} // Potentially add touchAction
+      className="m-4"
+      onTouchStart={handleTouchStart} // Add touch event listeners (use with caution)
+      onTouchMove={handleTouchMove} // Add touch event listeners (use with caution)
+      onTouchEnd={handleTouchEnd} // Add touch event listeners (use with caution)
+    >
       <Card number={number} />
     </div>
   );
