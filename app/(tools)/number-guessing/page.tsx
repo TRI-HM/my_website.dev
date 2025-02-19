@@ -84,7 +84,7 @@ const NumberGuessing = () => {
       <div className="flex justify-center items-center h-screen w-full bg-slate-500">
         <div className="container bg-slate-300 p-4 rounded-lg shadow-lg items-center flex flex-col">
           <h1 className="text-5xl text-red-400 m-10">Number Guessing</h1>
-          <div className="flex flex-row justify-center items-center bg-slate-800 w-3/4 h-1/2 rounded-xl">
+          <div className="flex flex-row flex-wrap  xs:flex-col justify-center items-center bg-slate-800 w-3/4 h-1/2 rounded-xl">
             {cards.map((number, index) => (
               <CardItem
                 key={number}
