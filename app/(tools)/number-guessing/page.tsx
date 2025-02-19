@@ -4,6 +4,7 @@ import { useDrag, useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "@/app/components/numberGuessing/Card";
 import Button from "./components/Button";
+import Popup from "./components/Popup";
 
 interface CardItemProps {
   number: number;
@@ -60,10 +61,14 @@ const CardItem: React.FC<CardItemProps> = ({ number, index, moveCard }) => {
 };
 
 const NumberGuessing = () => {
-  const [targetNumber, setTargetNumber] = useState<number[]>([1, 3, 2, 4, 5]);
-  const [cards, setCards] = useState<number[]>([1, 2, 3, 4, 5]);
+  const [targetNumber, setTargetNumber] = useState<number[]>([
+    1, 3, 2, 4, 5, 6,
+  ]);
+  const [cards, setCards] = useState<number[]>([1, 2, 3, 4, 5, 6]);
   const [correctPositions, setCorrectPositions] = useState(0);
   const [moveCount, setMoveCount] = useState(0);
+  const [popupWin, setPopupWin] = useState(false);
+  const [countWin, setCountWin] = useState(0);
 
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const updatedCards = [...cards];
@@ -84,12 +89,14 @@ const NumberGuessing = () => {
     setCorrectPositions(correctCount);
 
     if (cards.join(" ") === targetNumber.join(" ")) {
-      alert("You win!");
+      setCountWin(countWin + 1);
+      setPopupWin(true);
     }
   };
 
   const handleReset = () => {
-    setCards([1, 2, 3, 4, 5]);
+    setPopupWin(false);
+    setCards([1, 2, 3, 4, 5, 6]);
     setCorrectPositions(0);
     setMoveCount(0);
     // Set random a new target
@@ -117,12 +124,26 @@ const NumberGuessing = () => {
             <Button handleOnClick={handleReset} content="Reset" />
             <Button handleOnClick={handleGuess} content="Guess" />
           </div>
-          <div>
-            <p>Numbers in correct position: {correctPositions}</p>
+          <div className="m-4">
+            <p>
+              Numbers in correct position: <b>{correctPositions}</b>
+            </p>
             {/* <p>Target: {targetNumber.join(" ")}</p> */}
-            <p>Count user move: {moveCount}</p>
+            <p>
+              Count user move: <b>{moveCount}</b>
+            </p>
+            <p>
+              Count win: <b>{countWin}</b>
+            </p>
           </div>
         </div>
+        <Popup
+          isOpen={popupWin}
+          onlyConfirm={{ status: true, buttonContent: "OK" }}
+          message={"Chúc mừng bạn đã chiến thắng!"}
+          onClose={handleReset}
+          onConfirm={handleReset}
+        />
       </div>
     </DndProvider>
   );
