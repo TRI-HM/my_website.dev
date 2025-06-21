@@ -7,7 +7,7 @@ export default function WeddingLayout({
 }) {
   return (
     <html lang="vi">
-      <body className="bg-rose-50 font-serif">{children}</body>
+      <body className="bg-rose-50 container font-serif">{children}</body>
     </html>
   );
 }
