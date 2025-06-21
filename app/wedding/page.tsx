@@ -1,3 +1,4 @@
+"use client";
 import CoupleImageSection from "./components/coupleImage/page";
 import EventInfoSection from "./components/eventInfo/page";
 import FooterSection from "./components/footer/page";
