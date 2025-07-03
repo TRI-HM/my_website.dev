@@ -8,7 +8,7 @@ const navigationItems = [
 
 const Navigation = () => {
   return (
-    <div className="container rounded-b-3xl fixed bg-white/70 shadow-xl">
+    <div className="container rounded-b-3xl fixed bg-white/70 shadow-xl z-50">
       <ul className="flex flex-row justify-around p-4">
         {navigationItems.map((item) => (
           <NavigateLink key={item.label} href={item.href} label={item.label} />
