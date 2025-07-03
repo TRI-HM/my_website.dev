@@ -1,12 +1,18 @@
-import React from 'react'
-import Cover from './components/Cover'
+import React from "react";
+import Cover from "./components/Cover";
+import OutstandingSkills from "./components/OutstandingSkills";
+import Timeline from "./components/Timeline";
 
 const Profile = () => {
   return (
     <>
-      <Cover />
+      <div className="gap-12 flex flex-col">
+        <Cover />
+        <OutstandingSkills />
+        <Timeline />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
