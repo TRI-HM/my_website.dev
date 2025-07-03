@@ -10,6 +10,11 @@ const Profile = () => {
         <Cover />
         <OutstandingSkills />
         <Timeline />
+        {/* Todo: Add Education component */}
+        {/* <Education /> */}
+        {/* Todo: Contact component */}
+        {/* <Contact /> */}
+        
       </div>
     </>
   );
