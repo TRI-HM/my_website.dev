@@ -19,8 +19,9 @@ const Cover = () => {
               strings={[
                 "Huỳnh Minh Trí",
                 "Theon Huynh",
-                "Developer",
+                "Web Developer",
                 "Project Management",
+                "Full Stack Developer",
               ]}
               typeSpeed={60}
               backSpeed={30}
