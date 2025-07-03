@@ -1,12 +1,11 @@
 import React from 'react'
+import Cover from './components/Cover'
 
 const Profile = () => {
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>This is the profile page.</p>
-      <p>Welcome to your profile!</p>
-    </div>
+    <>
+      <Cover />
+    </>
   )
 }
 

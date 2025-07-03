@@ -1,4 +1,4 @@
-import NavigateLink from "./_NavigateLink";
+import NavigateLink from "./navigateLink/_NavigateLink";
 
 const navigationItems = [
   { href: "#", label: "Thông tin cá nhân" },
