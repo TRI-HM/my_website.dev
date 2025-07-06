@@ -28,3 +28,16 @@
     transform: rotateY(1080deg); /* 3 vòng xoay */
   }
 }
+
+@keyframes dockCardPopIn {
+  0%   { transform: scale(0.7) translateX(0); }
+  20%  { transform: scale(1.2) translateX(0); }
+  35%  { transform: scale(1.15) translateX(-14px) rotateZ(-7deg);}
+  50%  { transform: scale(1.1) translateX(14px) rotateZ(7deg);}
+  65%  { transform: scale(1.05) translateX(-8px) rotateZ(-4deg);}
+  80%  { transform: scale(1.01) translateX(4px) rotateZ(2deg);}
+  100% { transform: scale(1.0) translateX(0) rotateZ(0);}
+}
+.dock-card-animate {
+  animation: dockCardPopIn 0.7s cubic-bezier(.46,1.48,.54,.94);
+}

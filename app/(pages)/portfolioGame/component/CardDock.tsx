@@ -4,22 +4,28 @@ import Card3D from "./Card3D";
 type CardDockProps = {
   cards: { id: string; front: React.ReactNode }[];
   maxSlots?: number;
+  lastCollectedCardId?: string; // card mới vừa chui vào slot
 };
 
-const CardDock: React.FC<CardDockProps> = ({ cards, maxSlots = 5 }) => {
-  return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-30">
-      {Array.from({ length: maxSlots }).map((_, idx) => (
+const CardDock: React.FC<CardDockProps> = ({
+  cards,
+  maxSlots = 5,
+  lastCollectedCardId,
+}) => (
+  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-30">
+    {Array.from({ length: maxSlots }).map((_, idx) => {
+      const card = cards[idx];
+      const isNew = card && card.id === lastCollectedCardId;
+      return (
         <div
           key={idx}
-          className="w-24 h-36 rounded-xl border-4 border-dashed border-gray-400 bg-white/30 backdrop-blur-sm flex items-center justify-center shadow-lg">
-          {cards[idx] && (
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Hiển thị mặt trước của lá bài */}
-              <div className="w-20 h-32">
+          className={`w-24 h-36 rounded-xl bg-white/30 backdrop-blur-sm flex items-center justify-center shadow-lg transition-all`}>
+          {card && (
+            <div className={`w-full h-full flex items-center justify-center`}>
+              <div className={`w-20 h-32 ${isNew ? "dock-card-animate" : ""}`}>
                 <Card3D
                   className="w-20 h-32"
-                  front={cards[idx].front}
+                  front={card.front}
                   back={null}
                   rotationY={0}
                 />
@@ -27,9 +33,9 @@ const CardDock: React.FC<CardDockProps> = ({ cards, maxSlots = 5 }) => {
             </div>
           )}
         </div>
-      ))}
-    </div>
-  );
-};
+      );
+    })}
+  </div>
+);
 
 export default CardDock;
