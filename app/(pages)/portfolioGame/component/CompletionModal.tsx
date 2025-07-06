@@ -5,20 +5,32 @@ type CompletionModalProps = {
   onClose?: () => void;
 };
 
+type ConfettiParticle = {
+  x: number;
+  y: number;
+  r: number; // radius
+  d: number; // density
+  color: string;
+  tilt: number;
+  tiltAngleIncremental: number;
+  tiltAngle: number;
+};
+
+const CONFETTI_DURATION = 5000; // 5 giây
+
 const CompletionModal: React.FC<CompletionModalProps> = ({ open, onClose }) => {
-  // Confetti canvas ref
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   useEffect(() => {
     if (!open) return;
 
-    // Simple confetti animation (canvas)
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    ctxRef.current = ctx;
 
-    // Confetti particles
     const confettiColors = [
       "#FFD700",
       "#FF69B4",
@@ -26,58 +38,58 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ open, onClose }) => {
       "#FF6E40",
       "#B388FF",
     ];
-    const confettiCount = 120;
-    const confetti: {
-      x: number;
-      y: number;
-      r: number; // radius
-      d: number; // density
-      color: string;
-      tilt: number;
-      tiltAngleIncremental: number;
-      tiltAngle: number;
-    }[] = [];
+    const confetti: ConfettiParticle[] = [];
     const W = window.innerWidth;
     const H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
 
-    for (let i = 0; i < confettiCount; i++) {
-      confetti.push({
-        x: Math.random() * W,
-        y: Math.random() * H - H,
-        r: Math.random() * 6 + 6,
-        d: Math.random() * confettiCount,
-        color:
-          confettiColors[Math.floor(Math.random() * confettiColors.length)],
-        tilt: Math.floor(Math.random() * 20) - 10,
-        tiltAngleIncremental: Math.random() * 0.07 + 0.05,
-        tiltAngle: 0,
-      });
+    let angle = 0;
+    let confettiTimer = 0;
+    let spawnEnabled = true;
+
+    // Sinh pháo giấy liên tục trong 5s, sau đó dừng sinh mới, chỉ cho các mảnh còn lại rơi hết
+    function spawnConfetti() {
+      if (!spawnEnabled) return;
+      for (let i = 0; i < 2; i++) {
+        confetti.push({
+          x: Math.random() * W,
+          y: -20,
+          r: Math.random() * 6 + 6,
+          d: Math.random() * 120,
+          color:
+            confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          tilt: Math.floor(Math.random() * 20) - 10,
+          tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+          tiltAngle: 0,
+        });
+      }
     }
 
-    let angle = 0;
-    let confettiTimer: number;
-    let running = true;
+    const spawnInterval = setInterval(spawnConfetti, 40);
+
+    setTimeout(() => {
+      spawnEnabled = false;
+      clearInterval(spawnInterval);
+    }, CONFETTI_DURATION);
 
     function drawConfetti() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, W, H);
+      if (!ctxRef.current) return;
+      ctxRef.current.clearRect(0, 0, W, H);
       for (let i = 0; i < confetti.length; i++) {
-        ctx.beginPath();
-        ctx.lineWidth = confetti[i].r;
-        ctx.strokeStyle = confetti[i].color;
-        ctx.moveTo(
+        ctxRef.current.beginPath();
+        ctxRef.current.lineWidth = confetti[i].r;
+        ctxRef.current.strokeStyle = confetti[i].color;
+        ctxRef.current.moveTo(
           confetti[i].x + confetti[i].tilt + confetti[i].r / 3,
           confetti[i].y
         );
-        ctx.lineTo(
+        ctxRef.current.lineTo(
           confetti[i].x + confetti[i].tilt,
           confetti[i].y + confetti[i].tilt + confetti[i].r / 3
         );
-        ctx.stroke();
+        ctxRef.current.stroke();
       }
-      updateConfetti();
     }
 
     function updateConfetti() {
@@ -88,31 +100,30 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ open, onClose }) => {
         c.x += Math.sin(angle);
         c.tiltAngle += c.tiltAngleIncremental;
         c.tilt = Math.sin(c.tiltAngle) * 15;
-
-        // Recycle when off screen
-        if (c.y > H + 20) {
-          c.x = Math.random() * W;
-          c.y = -10;
-          c.tilt = Math.floor(Math.random() * 10) - 10;
+      }
+      // Xóa mảnh đã rơi ra khỏi màn hình
+      for (let i = confetti.length - 1; i >= 0; i--) {
+        if (confetti[i].y > H + 40) {
+          confetti.splice(i, 1);
         }
       }
     }
 
     function animate() {
-      if (!running) return;
       drawConfetti();
-      confettiTimer = requestAnimationFrame(animate);
+      updateConfetti();
+      if (confetti.length > 0 || spawnEnabled) {
+        confettiTimer = requestAnimationFrame(animate);
+      } else {
+        if (!ctxRef.current) return;
+        ctxRef.current.clearRect(0, 0, W, H);
+      }
     }
     animate();
 
-    // Stop after 2.2s
-    setTimeout(() => {
-      running = false;
-      ctx.clearRect(0, 0, W, H);
-    }, 5000);
-
     return () => {
-      running = false;
+      spawnEnabled = false;
+      clearInterval(spawnInterval);
       cancelAnimationFrame(confettiTimer);
       ctx.clearRect(0, 0, W, H);
     };
