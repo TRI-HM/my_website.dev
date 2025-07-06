@@ -24,9 +24,6 @@ const PortfolioGame = () => {
     <main className="relative min-h-screen bg-gray-900">
       <CardRain cardCount={12} onCardSelect={handleCardSelect} />
       <CardDock cards={dockCards} maxSlots={5} />
-      <div className="relative z-20 flex items-center justify-center min-h-screen">
-        <h1 className="text-white text-5xl font-bold">Portfolio Game</h1>
-      </div>
     </main>
   );
 };
