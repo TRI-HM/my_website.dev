@@ -41,3 +41,23 @@
 .dock-card-animate {
   animation: dockCardPopIn 0.7s cubic-bezier(.46,1.48,.54,.94);
 }
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animate-bounce-in {
+  animation: bounceIn 0.7s cubic-bezier(.47,1.64,.41,.8);
+}
