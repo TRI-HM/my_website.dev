@@ -1,0 +1,30 @@
+.perspective {
+  perspective: 1000px;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+@keyframes fallingCardSpinY {
+  0% {
+    top: -150px;
+    opacity: 0;
+    transform: rotateY(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100vh;
+    opacity: 0;
+    transform: rotateY(1080deg); /* 3 vòng xoay */
+  }
+}
