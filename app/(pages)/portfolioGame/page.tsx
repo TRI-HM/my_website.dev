@@ -22,7 +22,7 @@ const PortfolioGame = () => {
 
   return (
     <main className="relative min-h-screen bg-gray-900">
-      <CardRain cardCount={12} onCardSelect={handleCardSelect} />
+      <CardRain cardCount={5} onCardSelect={handleCardSelect} />
       <CardDock cards={dockCards} maxSlots={5} />
     </main>
   );
