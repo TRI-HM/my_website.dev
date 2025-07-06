@@ -5,7 +5,7 @@ import PortfolioGame from "./(pages)/portfolioGame/page";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-slate-600">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-slate-300">
       {/* <Profile /> */}
       <PortfolioGame />
     </div>
