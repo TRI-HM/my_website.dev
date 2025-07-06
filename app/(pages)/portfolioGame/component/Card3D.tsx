@@ -18,7 +18,7 @@ const Card3D: React.FC<Card3DProps> = ({
   className,
 }) => (
   <div
-    className={`w-44 h-28 perspective ${className ?? ""}`}
+    className={`w-28 h-44 perspective ${className ?? ""}`}
     style={{
       ...style,
       transform: `translateY(${translateY}px)`,

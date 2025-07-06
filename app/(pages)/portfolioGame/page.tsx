@@ -2,6 +2,7 @@ import React from "react";
 import "./styles.css";
 import { Metadata } from "next";
 import CardRain from "./component/CardRain";
+import CardDock from "./component/CardDock";
 
 export const metadata: Metadata = {
   title: "Portfolio Game",
@@ -12,9 +13,7 @@ const PortfolioGame = () => {
   return (
     <main className="relative min-h-screen bg-gray-900">
       <CardRain cardCount={5} />
-      <div className="relative z-20 flex items-center justify-center min-h-screen">
-        <h1 className="text-white text-5xl font-bold">Portfolio Game</h1>
-      </div>
+      <CardDock />
     </main>
   );
 };
