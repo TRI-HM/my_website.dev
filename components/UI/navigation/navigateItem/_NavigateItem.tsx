@@ -11,7 +11,7 @@ const NavigateItem = ({ href, label }: NavigateItemProps) => {
     <li className="list-none">
       <Link
         href={href}
-        className="flex items-center justify-center rounded-full bg-gray-300 py-2 px-6 hover:bg-gray-400 transition-colors duration-300 text-bold text-black">
+        className="uppercase flex items-center justify-center rounded-full bg-gray-300 py-2 px-6 hover:bg-gray-400 transition-colors duration-300 font-bold text-gray-700 hover:text-white">
         {label}
       </Link>
     </li>

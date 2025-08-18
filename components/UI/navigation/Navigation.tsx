@@ -1,25 +1,19 @@
-import NavigateItem from "@/app/components/navigation/navigateItem/_NavigateItem";
+import NavigateItem from "./navigateItem/_NavigateItem";
 
 const navigationItems = [
-  { href: "#", label: "Thông tin cá nhân" },
-  { href: "#", label: "Đổi mật khẩu" },
-  { href: "#", label: "Đăng xuất" },
+  { href: "#", label: "Information" },
+  { href: "#", label: "Projects" },
+  { href: "#", label: "Log out" },
 ];
 
 const Navigation = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-red-500 h-16 z-50 border-4 border-yellow-400">
-      <div className="bg-green-500 h-full w-full">
-        <ul className="flex justify-around items-center h-full">
-          {navigationItems.map((item) => (
-            <NavigateItem
-              key={item.label}
-              href={item.href}
-              label={item.label}
-            />
-          ))}
-        </ul>
-      </div>
+    <nav className="container mx-auto bg-white/90 p-4 min-h-[60px] rounded-b-4xl">
+      <ul className="flex gap-4 items-center justify-center">
+        {navigationItems.map((item) => (
+          <NavigateItem key={item.label} href={item.href} label={item.label} />
+        ))}
+      </ul>
     </nav>
   );
 };
