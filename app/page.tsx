@@ -1,9 +1,3 @@
-
 export default function Home() {
-  return (
-    <div>
-      {/* <Profile /> */}
-      {/* <PortfolioGame /> */}
-    </div>
-  );
+  return <div>Hello</div>;
 }
