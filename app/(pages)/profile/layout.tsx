@@ -10,8 +10,8 @@ export default function ProfileLayout({
   return (
     <section className="container mx-auto px-6">
       <Navigation />
-      <main>{children}</main>
-       <ScrollToTop />
+      <main className="pt-20">{children}</main>
+      <ScrollToTop />
       <footer className="mt-12 text-center text-gray-600">
         © {new Date().getFullYear()} Huynh Minh Tri. All rights reserved.
       </footer>

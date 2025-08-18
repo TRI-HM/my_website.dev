@@ -1,4 +1,4 @@
-import NavigateLink from "./navigateLink/_NavigateLink";
+import NavigateItem from "../../../components/navigation/navigateItem/_NavigateItem";
 
 const navigationItems = [
   { href: "#", label: "Thông tin cá nhân" },
@@ -8,13 +8,13 @@ const navigationItems = [
 
 const Navigation = () => {
   return (
-    <div className="container rounded-b-3xl fixed bg-white/70 shadow-xl z-50">
+    <nav className="container mx-auto rounded-b-3xl fixed top-0 left-0 right-0 bg-blue-500 shadow-xl z-50">
       <ul className="flex flex-row justify-around p-4">
         {navigationItems.map((item) => (
-          <NavigateLink key={item.label} href={item.href} label={item.label} />
+          <NavigateItem key={item.label} href={item.href} label={item.label} />
         ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 
