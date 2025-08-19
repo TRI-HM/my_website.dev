@@ -1,5 +1,6 @@
 import LeftSection from "@/components/UI/profile/leftSection/LeftSection";
 import RightSection from "@/components/UI/profile/rightSection/RightSection";
+import SidebarNav from "@/components/UI/profile/sidebar/SidebarNav";
 
 export default function Home() {
   return (
@@ -9,8 +10,12 @@ export default function Home() {
         <LeftSection />
       </div>
       {/* Right section - Scrollable with left margin to avoid overlap */}
-      <div className="w-3/4 ml-[50%] h-auto overflow-y-auto">
+      <div className="w-3/4 ml-[25%] px-24 h-auto overflow-y-auto">
         <RightSection />
+      </div>
+      {/* Sidebar Navigation */}
+      <div className="w-1/4 bg-gray-200 h-screen fixed top-0 right-0 z-10">
+        <SidebarNav />
       </div>
     </section>
   );
