@@ -14,7 +14,7 @@ export default function Home() {
         <RightSection />
       </div>
       {/* Sidebar Navigation */}
-      <div className="w-1/4 bg-gray-200 h-screen fixed top-0 right-0 z-10">
+      <div className="bg-gray-200 h-screen fixed top-0 right-0 z-10">
         <SidebarNav />
       </div>
     </section>

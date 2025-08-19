@@ -3,11 +3,10 @@ import React from "react";
 import SidebarItem from "./_SidebarItem";
 import { MdPerson, MdSettings } from "react-icons/md";
 
-// Todo: fix positioning
 const SidebarNav = () => {
   return (
-    <div className="h-screen fixed top-0 right-0 p-6 overflow-y-auto flex flex-col items-center">
-      <div className="bg-white p-4 rounded-2xl shadow mt-6 w-fit">
+    <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-50">
+      <div className="bg-white p-4 rounded-2xl shadow-lg">
         <SidebarItem
           icon={<MdSettings className="text-xl" />}
           tooltip="Settings"
