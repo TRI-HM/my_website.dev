@@ -6,20 +6,40 @@ type SidebarItemProps = {
   icon?: React.ReactNode;
   tooltip?: string;
   onClick?: () => void;
+  isHovered?: boolean;
+  isDimmed?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
 
 const SidebarItem = ({
   icon = <MdHome className="text-xl mr-2" />,
   tooltip = "Home",
   onClick,
+  isHovered = false,
+  isDimmed = false,
+  onMouseEnter,
+  onMouseLeave,
 }: SidebarItemProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+    onMouseEnter?.();
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+    onMouseLeave?.();
+  };
+
   return (
     <div
-      className="flex items-center p-2 hover:bg-gray-100 relative cursor-pointer"
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
+      className={`flex items-center p-2 hover:text-[#28e98c] hover:bg-gray-200 rounded-full relative cursor-pointer transition-all duration-300 ease-in-out ${
+        isDimmed ? "opacity-50" : "opacity-100"
+      } ${isHovered ? "scale-110 text-[#28e98c] bg-gray-200" : ""}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={onClick}>
       {icon}
 
